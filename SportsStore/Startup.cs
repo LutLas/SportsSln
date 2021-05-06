@@ -50,6 +50,9 @@ namespace SportsStore
                 {
                     await context.Response.WriteAsync("Hello World!");
                 });*/
+                endpoints.MapControllerRoute("pagination",
+                    "Products/Page{productPage}",
+                    new { Controller = "Home", action = "Index"});
                 endpoints.MapDefaultControllerRoute();
             });
             SeedData.EnsurePopulated(app);

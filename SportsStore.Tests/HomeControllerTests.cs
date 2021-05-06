@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using SportsStore.Controllers;
 using SportsStore.Models;
+using SportsStore.Models.ViewModels;
 //using SportsStore.Models.ViewModels;
 using Xunit;
 
@@ -22,17 +23,17 @@ namespace SportsStore.Tests {
 
             HomeController controller = new HomeController(mock.Object);
 
-            // Act
+            /*// Act
             IEnumerable<Product> result = (controller.Index() as ViewResult).ViewData.Model as IEnumerable<Product>;
             // Assert
-            Product[] prodArray = result.ToArray();
+            Product[] prodArray = result.ToArray();*/
 
             // Act
-            /*ProductsListViewModel result =
-                controller.Index().ViewData.Model as ProductsListViewModel;*/
+            ProductsListViewModel result =
+                controller.Index().ViewData.Model as ProductsListViewModel;
 
             // Assert
-            /*Product[] prodArray = result.Products.ToArray();*/
+            Product[] prodArray = result.Products.ToArray();
             Assert.True(prodArray.Length == 2);
             Assert.Equal("P1", prodArray[0].Name);
             Assert.Equal("P2", prodArray[1].Name);
@@ -54,19 +55,19 @@ namespace SportsStore.Tests {
             controller.PageSize = 3;
 
             // Act
-            /*ProductsListViewModel result =
-               controller.Index(2).ViewData.Model as ProductsListViewModel;*/
+            ProductsListViewModel result =
+               controller.Index(2).ViewData.Model as ProductsListViewModel;
 
-            // Act
+            /*// Act
             IEnumerable<Product> result =
             (controller.Index(2) as ViewResult).ViewData.Model
-            as IEnumerable<Product>;
+            as IEnumerable<Product>;*/
 
             // Assert
-            /*Product[] prodArray = result.Products.ToArray();*/
-            
-            // Assert
-            Product[] prodArray = result.ToArray();
+            Product[] prodArray = result.Products.ToArray();
+
+            /*// Assert
+            Product[] prodArray = result.ToArray();*/
             Assert.True(prodArray.Length == 2);
             Assert.Equal("P4", prodArray[0].Name);
             Assert.Equal("P5", prodArray[1].Name);

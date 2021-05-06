@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Moq;
-//using SportsStore.Infrastructure;
-//using SportsStore.Models.ViewModels;
+using SportsStore.Infrastructure;
+using SportsStore.Models.ViewModels;
 using Xunit;
 
 namespace SportsStore.Tests {
@@ -26,15 +26,17 @@ namespace SportsStore.Tests {
                     f.GetUrlHelper(It.IsAny<ActionContext>()))
                         .Returns(urlHelper.Object);
 
-            /*PageLinkTagHelper helper =
-                    new PageLinkTagHelper(urlHelperFactory.Object) {
-                        PageModel = new PagingInfo {
+            PageLinkTagHelper helper =
+                    new PageLinkTagHelper(urlHelperFactory.Object)
+                    {
+                        PageModel = new PagingInfo
+                        {
                             CurrentPage = 2,
                             TotalItems = 28,
                             ItemsPerPage = 10
                         },
                         PageAction = "Test"
-                    };*/
+                    };
 
             TagHelperContext ctx = new TagHelperContext(
                 new TagHelperAttributeList(),
