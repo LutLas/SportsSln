@@ -1,0 +1,50 @@
+﻿@page "/admin/products"
+@page "/admin"
+@inherits OwningComponentBase<IStoreRepository>
+<table class="table table-sm table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th colspan="2"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ProductData?.Count() > 0) {
+            
+            @foreach (Product p in ProductData) {
+        <tr>
+            <td>@p.Name</td>
+            <td>@p.ProductID</td>
+            <td>@p.Category</td>
+            <td>@p.Price.ToString("c")</td>
+            <td>
+                <NavLink class="btn btn-info btn-sm" href="@GetDetailsUrl(p.ProductID)">Details</NavLink>
+            </td>
+            <td>
+                <NavLink class="btn btn-warning btn-sm" href="@GetEditUrl(p.ProductID)">Edit</NavLink>
+            </td>
+        </tr>
+            }
+        } else {
+            <tr>
+                <td colspan="6" class="text-center">No Products</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<NavLink class="btn btn-primary" href="/admin/products/create">Create</NavLink>
+@code {
+    public IStoreRepository Repository => Service;
+    public IEnumerable<Product> ProductData { get; set; }
+    protected async override Task OnInitializedAsync() {
+        await UpdateData();
+    }
+    public async Task UpdateData() {
+        ProductData = await Repository.Products.ToListAsync();
+    }
+    public string GetDetailsUrl(long id) => $"/admin/products/details/{id}";
+    public string GetEditUrl(long id) => $"/admin/products/edit/{id}";
+}
