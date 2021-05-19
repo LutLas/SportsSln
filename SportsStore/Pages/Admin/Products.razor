@@ -8,7 +8,7 @@
             <th>ID</th>
             <th>Category</th>
             <th>Price</th>
-            <th colspan="2"></th>
+            <th colspan="3"></th>
         </tr>
     </thead>
     <tbody>
@@ -26,11 +26,16 @@
             <td>
                 <NavLink class="btn btn-warning btn-sm" href="@GetEditUrl(p.ProductID)">Edit</NavLink>
             </td>
+            <td>
+                <button class="btn btn-danger btn-sm" @onclick="@(e => DeleteProduct(p))">
+                    Delete
+                </button>
+            </td>
         </tr>
             }
         } else {
             <tr>
-                <td colspan="6" class="text-center">No Products</td>
+                <td colspan="7" class="text-center">No Products</td>
             </tr>
         }
     </tbody>
@@ -44,6 +49,10 @@
     }
     public async Task UpdateData() {
         ProductData = await Repository.Products.ToListAsync();
+    }
+    public async Task DeleteProduct(Product p) {
+        Repository.DeleteProduct(p);
+        await UpdateData();
     }
     public string GetDetailsUrl(long id) => $"/admin/products/details/{id}";
     public string GetEditUrl(long id) => $"/admin/products/edit/{id}";
